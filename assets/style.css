@@ -1,0 +1,15 @@
+.sidenav{
+ position: fixed;
+ left: 0;
+ top: 0;
+ width: 20vw;
+ height: 100vh;
+ padding-right: 10px;
+}
+
+main,
+#body
+{
+    width: 80vw;
+    margin-left: 30vw
+}

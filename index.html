@@ -6,12 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./assets/style.css">
+   
+
 </head>
-<body id='body'>
-    <header  class="text-3xl font-bold underline text-center">Weather Dashboard</header>
-    <input type="text" placeholder="Please enter your city" id="search-city" class="ring-offset-2 ring-2 p-2 m-2"></input>
+
+    <header  class="text-3xl font-bold underline text-center p-5 bg-amber-600">Weather Dashboard</header>
+   
+   <div class ='sidenav bg-lime-400'>
+    
+    <input type="text" placeholder="Please enter your city" id="search-city" class="ring-offset-2 ring-2 p-5 m-5 "></input>
     <div id="search-results"></div>
-    <button id='submit-city' class="ring-2 ring-pink-500 ring-inset bg-indigo-500 p-2 m-2">Submit</button>
-</body>
+    <button id='submit-city' class="ring-2 ring-pink-500 ring-inset bg-indigo-500 p-5 m-5 rounded-full hover:bg-sky-700">Enter</button>
+    <h2 class ="text-2xl font-bold" >Search History</h2>
+    <ul id="user-his">
+
+   </ul>
+   </div>
+
+   <section id="body" class="w-64" >
+
+   </section>
+
+    <main id="main" class='flex'>  
+    </main>
+<
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="./assets/script.js"></script>
+
 </html>
