@@ -1,13 +1,13 @@
 var searchInputEl = document.querySelector('#search-city')
 var submitButton = document.querySelector('#submit-city')
 var main = document.querySelector('#main')
-var body = document.querySelector('#body')
+var body = document.querySelector('#section')
 var sidenav = document.querySelector('.sidenav')
 var userhisUl= document.querySelector('#user-his')
 var Todos = []
 var past = document.querySelector('.liBtn')
 
-
+//This creates the list of the history
 function getHistory(){
     userhisUl.innerHTML=""
     for(var i = 0;i < Todos.length; i++){
@@ -21,7 +21,7 @@ function getHistory(){
 
     }
 }
-
+// this gets the local storage 
 function init(){
     var storedHistory = JSON.parse(localStorage.getItem("history"))
 
@@ -30,14 +30,15 @@ function init(){
     }
     getHistory()
 }
+// this sets the local storage 
 function storeHistory(){
     localStorage.setItem('history', JSON.stringify(Todos))
 }
-
+//This is the main function 
 function getMedia(){
-   
-    getHistory()
-  
+    
+    
+  // seting seach input to a value 
     var historyText = searchInputEl.value
     console.log(historyText)
     Todos.push(historyText)
@@ -45,14 +46,14 @@ function getMedia(){
     
     
     storeHistory()
-    
+    // this fetch is getting the the city by name 
     var apiCity = 'https://api.openweathermap.org/data/2.5/weather?q='+ searchInputEl.value + '&APPID=be344cdaf97196f52514caea64ace3fd'
     fetch(apiCity)
     .then(function(res){
         return res.json()
     })
     .then(function(data){
-       
+       // creating verables for lon and lat 
         var lon = data.coord.lon
         var lat = data.coord.lat
         
@@ -60,13 +61,14 @@ function getMedia(){
     
 
 
- 
+ // this fetch is using lon and lat 
     var apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='+lat +"&lon="+ lon +"&appid=be344cdaf97196f52514caea64ace3fd&units=imperial"
     fetch(apiUrl)
     .then(function(res){
         return res.json()
     })
     .then(function(data){
+        // these functions are for the cards that display the weather info 
         console.log(data)
         displayCity(data.city, data.list)
         oneDay(data.city, data.list)
@@ -76,12 +78,14 @@ function getMedia(){
         fiveDay(data.city, data.list)
         console.log(data.list)
        
-      
+        
     })
+   
 })
+
 }
 function displayCity(city,list){
-    
+    // this function is for today
     //for(var i = 0; i < city.length; i++){
         var div = document.createElement('div')
         div.classList = ' border-double border-4 border-sky-500 text-left'
@@ -106,7 +110,7 @@ function displayCity(city,list){
         div.appendChild(img)
         title.classList = "text-2xl font-bold"
 }
-
+// this function is for the second day 
   function oneDay(city,list){
     
     var div = document.createElement('div')
@@ -131,6 +135,8 @@ function displayCity(city,list){
 	div.appendChild(img)
         
 }
+// this function is for the second day info 
+// next time I will use a for loop for all this code!
 function twoDay(city,list){
     
     var div = document.createElement('div')
@@ -155,6 +161,7 @@ function twoDay(city,list){
 	div.appendChild(img)
     
 }
+// this function is for the third day info 
 function ThreeDay(city,list){
     
     var div = document.createElement('div')
@@ -179,6 +186,7 @@ function ThreeDay(city,list){
 	div.appendChild(img)
     
 }
+// this function is for the fourth day info 
 function fourDay(city,list){
     
     var div = document.createElement('div')
@@ -202,6 +210,7 @@ function fourDay(city,list){
          img.setAttribute('src','https://openweathermap.org/img/wn/'+icon+'@2x.png')
      div.appendChild(img)
 }
+//// this function is for the fithday info 
 function fiveDay(city,list){
     
     var div = document.createElement('div')
@@ -228,11 +237,12 @@ function fiveDay(city,list){
 getHistory()
 init()
 
-
-$(submitButton).on('click', getMedia )
-
+// this is the event listener for the submit button.
+$(submitButton).on('click', getMedia)
+// this is the event listener for when you click on the history list. 
 $(".liBtn").on("click", function (){
-    
+   
+   
     var userInput = $(this).text()
     var apiCity = 'https://api.openweathermap.org/data/2.5/weather?q='+ userInput + '&APPID=be344cdaf97196f52514caea64ace3fd'
     fetch(apiCity,{
@@ -265,8 +275,9 @@ $(".liBtn").on("click", function (){
         fiveDay(data.city, data.list)
         console.log(data.list)
        return;
-      
+    
     })
+
 })
-    console.log(userInput)
+   // console.log(userInput)
 })
