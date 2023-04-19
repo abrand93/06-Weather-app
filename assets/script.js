@@ -36,8 +36,13 @@ function storeHistory(){
 }
 //This is the main function 
 function getMedia(){
-    
-    
+    if(searchInputEl.value === ""){
+        return
+    }
+   
+    $("#section").empty()
+    $('#main').empty()
+   
   // seting seach input to a value 
     var historyText = searchInputEl.value
     console.log(historyText)
@@ -77,7 +82,7 @@ function getMedia(){
         fourDay(data.city, data.list)
         fiveDay(data.city, data.list)
         console.log(data.list)
-       
+        
         
     })
    
@@ -88,10 +93,10 @@ function displayCity(city,list){
     // this function is for today
     //for(var i = 0; i < city.length; i++){
         var div = document.createElement('div')
-        div.classList = ' border-double border-4 border-sky-500 text-left'
+        div.classList = ' city border-double border-4 border-sky-500 text-left'
         var title = document.createElement('h2')
-        title.textContent = city.name + " " + list[0].dt_txt
-        var img = document.createElement('img')
+        title.textContent = city.name + " " +list[0].dt_txt
+        var img = document.createElement('img') 
        var icon = list[0].weather[0].icon
         img.setAttribute('src','https://openweathermap.org/img/wn/'+icon+'@2x.png')
         console.log(icon)
@@ -114,7 +119,7 @@ function displayCity(city,list){
   function oneDay(city,list){
     
     var div = document.createElement('div')
-        div.classList = 'border border-4 border-sky-500 p-2 m-2 content-start text-left'
+        div.classList = ' city border border-4 border-sky-500 p-2 m-2 content-start text-left'
         var title = document.createElement('h2')
         title.textContent = list[7].dt_txt
       
@@ -140,7 +145,7 @@ function displayCity(city,list){
 function twoDay(city,list){
     
     var div = document.createElement('div')
-        div.classList = 'border border-4 border-sky-500 p-2 m-2 content-start text-left'
+        div.classList = ' city border border-4 border-sky-500 p-2 m-2 content-start text-left'
         var title = document.createElement('h2')
         title.textContent = list[15].dt_txt
       
@@ -165,7 +170,7 @@ function twoDay(city,list){
 function ThreeDay(city,list){
     
     var div = document.createElement('div')
-        div.classList = 'border border-4 border-sky-500 p-2 m-2 content-start text-left'
+        div.classList = ' city border border-4 border-sky-500 p-2 m-2 content-start text-left'
         var title = document.createElement('h2')
         title.textContent = list[23].dt_txt
       
@@ -190,7 +195,7 @@ function ThreeDay(city,list){
 function fourDay(city,list){
     
     var div = document.createElement('div')
-        div.classList = 'border border-4 border-sky-500 p-2 m-2 content-start text-left'
+        div.classList = 'city border border-4 border-sky-500 p-2 m-2 content-start text-left'
         var title = document.createElement('h2')
         title.textContent = list[31].dt_txt
       
@@ -214,7 +219,7 @@ function fourDay(city,list){
 function fiveDay(city,list){
     
     var div = document.createElement('div')
-        div.classList = 'border border-4 border-sky-500 p-2 m-2 text-left'
+        div.classList = 'city border border-4 border-sky-500 p-2 m-2 text-left'
         var title = document.createElement('h2')
         title.textContent = list[39].dt_txt
       
@@ -241,12 +246,13 @@ init()
 $(submitButton).on('click', getMedia)
 // this is the event listener for when you click on the history list. 
 $(".liBtn").on("click", function (){
-   
+    $("#section").empty()
+    $('#main').empty()
    
     var userInput = $(this).text()
     var apiCity = 'https://api.openweathermap.org/data/2.5/weather?q='+ userInput + '&APPID=be344cdaf97196f52514caea64ace3fd'
     fetch(apiCity,{
-    cache: 'reload'
+   
     })
     .then(function(res){
         return res.json()
